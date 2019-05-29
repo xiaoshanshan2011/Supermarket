@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shan.admin.mapper.WarehouseUserRelevanceDtoMapper" >
+  <resultMap id="BaseResultMap" type="com.shan.admin.dto.WarehouseUserRelevanceDto" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="userId" property="userid" jdbcType="VARCHAR" />
+    <result column="warehouseId" property="warehouseid" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="INTEGER" />
+    <result column="createTime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="updateTime" property="updatetime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_warehouse_user_relevance
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.shan.admin.dto.WarehouseUserRelevanceDto" >
+    insert into tb_warehouse_user_relevance (id, userId, warehouseId, 
+      deleted, createTime, updateTime
+      )
+    values (#{id,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, #{warehouseid,jdbcType=VARCHAR}, 
+      #{deleted,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.shan.admin.dto.WarehouseUserRelevanceDto" >
+    update tb_warehouse_user_relevance
+    set userId = #{userid,jdbcType=VARCHAR},
+      warehouseId = #{warehouseid,jdbcType=VARCHAR},
+      deleted = #{deleted,jdbcType=INTEGER},
+      createTime = #{createtime,jdbcType=TIMESTAMP},
+      updateTime = #{updatetime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select id, userId, warehouseId, deleted, createTime, updateTime
+    from tb_warehouse_user_relevance
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, userId, warehouseId, deleted, createTime, updateTime
+    from tb_warehouse_user_relevance
+  </select>
+</mapper>

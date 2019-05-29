@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shan.admin.mapper.GoodsClassifyDtoMapper" >
+  <resultMap id="BaseResultMap" type="com.shan.admin.dto.GoodsClassifyDto" >
+    <id column="classifyId" property="classifyid" jdbcType="VARCHAR" />
+    <result column="parentId" property="parentid" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="INTEGER" />
+    <result column="createTime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="updateTime" property="updatetime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_goods_classify
+    where classifyId = #{classifyid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.shan.admin.dto.GoodsClassifyDto" >
+    insert into tb_goods_classify (classifyId, parentId, name, 
+      deleted, createTime, updateTime
+      )
+    values (#{classifyid,jdbcType=VARCHAR}, #{parentid,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{deleted,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.shan.admin.dto.GoodsClassifyDto" >
+    update tb_goods_classify
+    set parentId = #{parentid,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      deleted = #{deleted,jdbcType=INTEGER},
+      createTime = #{createtime,jdbcType=TIMESTAMP},
+      updateTime = #{updatetime,jdbcType=TIMESTAMP}
+    where classifyId = #{classifyid,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select classifyId, parentId, name, deleted, createTime, updateTime
+    from tb_goods_classify
+    where classifyId = #{classifyid,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByPrimaryName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select classifyId, parentId, name, deleted, createTime, updateTime
+    from tb_goods_classify
+    where name = #{name,jdbcType=VARCHAR} and parentId = #{parentid,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select classifyId, parentId, name, deleted, createTime, updateTime
+    from tb_goods_classify
+    <where>
+      deleted = 0 and parentId = #{parentid,jdbcType=VARCHAR}
+    </where>
+  </select>
+</mapper>

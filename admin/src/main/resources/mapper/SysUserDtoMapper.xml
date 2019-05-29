@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shan.admin.mapper.SysUserDtoMapper" >
+  <resultMap id="BaseResultMap" type="com.shan.admin.dto.SysUserDto" >
+    <id column="userId" property="userid" jdbcType="VARCHAR" />
+    <result column="departmentId" property="departmentid" jdbcType="VARCHAR" />
+    <result column="roleId" property="roleid" jdbcType="VARCHAR" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="TINYINT" />
+    <result column="brithday" property="brithday" jdbcType="DATE" />
+    <result column="userPhoto" property="userphoto" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="createTime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="updateTime" property="updatetime" jdbcType="TIMESTAMP" />
+    <result column="deleted" property="deleted" jdbcType="INTEGER" />
+    <result column="nickName" property="nickname" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_sys_user
+    where userId = #{userid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.shan.admin.dto.SysUserDto" >
+    insert into tb_sys_user (userId, departmentId, roleId, 
+      username, password, sex, 
+      brithday, userPhoto, mobile, 
+      email, createTime, updateTime, nickName
+      )
+    values (#{userid,jdbcType=VARCHAR}, #{departmentid,jdbcType=VARCHAR}, #{roleid,jdbcType=VARCHAR}, 
+      #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{sex,jdbcType=TINYINT}, 
+      #{brithday,jdbcType=DATE}, #{userphoto,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP}, #{nickname,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.shan.admin.dto.SysUserDto" >
+    update tb_sys_user
+    set departmentId = #{departmentid,jdbcType=VARCHAR},
+      roleId = #{roleid,jdbcType=VARCHAR},
+      nickName = #{nickname,jdbcType=VARCHAR},
+      username = #{username,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=TINYINT},
+      brithday = #{brithday,jdbcType=DATE},
+      userPhoto = #{userphoto,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      deleted = #{deleted,jdbcType=INTEGER},
+      createTime = #{createtime,jdbcType=TIMESTAMP},
+      updateTime = #{updatetime,jdbcType=TIMESTAMP}
+    where userId = #{userid,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select userId, departmentId, roleId, username, password, sex, brithday, userPhoto, 
+    mobile, email, createTime, updateTime, nickName
+    from tb_sys_user
+    where userId = #{userid,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByPrimaryName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select userId, departmentId, roleId, username, password, sex, brithday, userPhoto,
+    mobile, email, createTime, updateTime, nickName
+    from tb_sys_user
+    where username = #{name,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByPrimaryMobile" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select userId, departmentId, roleId, username, password, sex, brithday, userPhoto,
+    mobile, email, createTime, updateTime, nickName
+    from tb_sys_user
+    where mobile = #{mobile,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="UserResultMap" >
+    select *
+    from tb_sys_user, tb_sys_role, tb_sys_department
+    <where>
+      tb_sys_user.roleId = tb_sys_role.roleId and tb_sys_user.departmentId = tb_sys_department.departmentId
+      and tb_sys_user.deleted = 0
+    </where>
+  </select>
+
+  <!-- 使用resultMap映射实体类和字段之间的一一对应关系 -->
+  <resultMap type="com.shan.admin.dto.SysUserDto" id="UserResultMap">
+    <id column="userId" property="userid" jdbcType="VARCHAR" />
+    <result column="departmentId" property="departmentid" jdbcType="VARCHAR" />
+    <result column="roleId" property="roleid" jdbcType="VARCHAR" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
+    <result column="brithday" property="brithday" jdbcType="VARCHAR" />
+    <result column="userPhoto" property="userphoto" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="createTime" property="createtime" jdbcType="VARCHAR" />
+    <result column="updateTime" property="updatetime" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="VARCHAR" />
+    <result column="nickName" property="nickname" jdbcType="VARCHAR" />
+    <association property="sysRole" javaType="com.shan.admin.dto.SysRoleDto">
+      <id column="roleId" property="roleid" jdbcType="VARCHAR" />
+      <result column="roleDesc" property="roledesc" jdbcType="VARCHAR" />
+    </association>
+    <association property="sysDepartment" javaType="com.shan.admin.dto.SysDepartmentDto">
+      <id column="departmentId" property="departmentid" jdbcType="VARCHAR" />
+      <result column="departmentName" property="departmentname" jdbcType="VARCHAR" />
+    </association>
+  </resultMap>
+</mapper>

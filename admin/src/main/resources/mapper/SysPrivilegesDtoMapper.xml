@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shan.admin.mapper.SysPrivilegesDtoMapper" >
+  <resultMap id="BaseResultMap" type="com.shan.admin.dto.SysPrivilegesDto" >
+    <id column="privilegesId" property="privilegesid" jdbcType="VARCHAR" />
+    <result column="privilegesName" property="privilegesname" jdbcType="VARCHAR" />
+    <result column="privilegesCode" property="privilegescode" jdbcType="VARCHAR" />
+    <result column="createTime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="updateTime" property="updatetime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_sys_privileges
+    where privilegesId = #{privilegesid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.shan.admin.dto.SysPrivilegesDto" >
+    insert into tb_sys_privileges (privilegesId, privilegesName, privilegesCode, 
+      createTime, updateTime)
+    values (#{privilegesid,jdbcType=VARCHAR}, #{privilegesname,jdbcType=VARCHAR}, #{privilegescode,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.shan.admin.dto.SysPrivilegesDto" >
+    update tb_sys_privileges
+    set privilegesName = #{privilegesname,jdbcType=VARCHAR},
+      privilegesCode = #{privilegescode,jdbcType=VARCHAR},
+      createTime = #{createtime,jdbcType=TIMESTAMP},
+      updateTime = #{updatetime,jdbcType=TIMESTAMP}
+    where privilegesId = #{privilegesid,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select privilegesId, privilegesName, privilegesCode, createTime, updateTime
+    from tb_sys_privileges
+    where privilegesId = #{privilegesid,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select privilegesId, privilegesName, privilegesCode, createTime, updateTime
+    from tb_sys_privileges
+  </select>
+</mapper>

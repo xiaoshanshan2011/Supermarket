@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shan.admin.mapper.SysRolePrivilegesDtoMapper" >
+  <resultMap id="BaseResultMap" type="com.shan.admin.dto.SysRolePrivilegesDto" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="privilegesId" property="privilegesid" jdbcType="VARCHAR" />
+    <result column="roleId" property="roleid" jdbcType="VARCHAR" />
+    <result column="createTime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="updateTime" property="updatetime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_sys_role_privileges
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.shan.admin.dto.SysRolePrivilegesDto" >
+    insert into tb_sys_role_privileges (id, privilegesId, roleId, 
+      createTime, updateTime)
+    values (#{id,jdbcType=VARCHAR}, #{privilegesid,jdbcType=VARCHAR}, #{roleid,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.shan.admin.dto.SysRolePrivilegesDto" >
+    update tb_sys_role_privileges
+    set privilegesId = #{privilegesid,jdbcType=VARCHAR},
+      roleId = #{roleid,jdbcType=VARCHAR},
+      createTime = #{createtime,jdbcType=TIMESTAMP},
+      updateTime = #{updatetime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select id, privilegesId, roleId, createTime, updateTime
+    from tb_sys_role_privileges
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, privilegesId, roleId, createTime, updateTime
+    from tb_sys_role_privileges
+  </select>
+</mapper>
