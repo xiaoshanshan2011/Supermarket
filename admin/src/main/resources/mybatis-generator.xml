@@ -6,7 +6,7 @@
 <generatorConfiguration>
 
     <!-- mysql-connector-java-5.1.46.jar的绝对路径 -->
-    <classPathEntry location="/home/project/maven/mysql/mysql-connector-java/8.0.13/mysql-connector-java-8.0.13.jar" />
+    <classPathEntry location="../mysql-connector-java-8.0.13.jar" />
 
     <context id="DB2Tables" targetRuntime="MyBatis3Simple" defaultModelType="flat">
         <!--去掉生成的注解-->
@@ -16,7 +16,7 @@
         </commentGenerator>
         <!-- 配置数据源 -->
         <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
-                        connectionURL="jdbc:mysql://39.108.101.171:3306/supermarket"
+                        connectionURL="jdbc:mysql://47.106.164.186:3306/supermarket"
                         userId="root"
                         password="123456mn">
             <!--MySQL 8.x 需要指定服务器的时区-->
@@ -56,11 +56,6 @@
         </javaClientGenerator>
 
         <!-- 指定我们要操作的表名和生成的javabean类名 -->
-        <table tableName="tb_goods" domainObjectName="GoodsDto"/>
-        <table tableName="tb_goods_classify" domainObjectName="GoodsClassifyDto"/>
-        <table tableName="tb_warehouse" domainObjectName="WarehouseDto"/>
-        <table tableName="tb_warehouse_goods" domainObjectName="WarehouseGoodsDto"/>
-        <table tableName="tb_warehouse_user" domainObjectName="WarehouseUserDto"/>
-        <table tableName="tb_warehouse_user_relevance" domainObjectName="WarehouseUserRelevanceDto"/>
+        <table tableName="tb_area" domainObjectName="AreaDto"/>
     </context>
 </generatorConfiguration>

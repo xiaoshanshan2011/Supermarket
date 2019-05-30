@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shan.admin.mapper.AreaDtoMapper" >
+  <resultMap id="BaseResultMap" type="com.shan.admin.dto.AreaDto" >
+    <id column="areaId" property="areaid" jdbcType="INTEGER" />
+    <result column="areaCode" property="areacode" jdbcType="VARCHAR" />
+    <result column="areaName" property="areaname" jdbcType="VARCHAR" />
+    <result column="level" property="level" jdbcType="TINYINT" />
+    <result column="cityCode" property="citycode" jdbcType="VARCHAR" />
+    <result column="center" property="center" jdbcType="VARCHAR" />
+    <result column="parentId" property="parentid" jdbcType="INTEGER" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_area
+    where areaId = #{areaid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.shan.admin.dto.AreaDto" >
+    insert into tb_area (areaId, areaCode, areaName, 
+      level, cityCode, center, 
+      parentId)
+    values (#{areaid,jdbcType=INTEGER}, #{areacode,jdbcType=VARCHAR}, #{areaname,jdbcType=VARCHAR}, 
+      #{level,jdbcType=TINYINT}, #{citycode,jdbcType=VARCHAR}, #{center,jdbcType=VARCHAR}, 
+      #{parentid,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.shan.admin.dto.AreaDto" >
+    update tb_area
+    set areaCode = #{areacode,jdbcType=VARCHAR},
+      areaName = #{areaname,jdbcType=VARCHAR},
+      level = #{level,jdbcType=TINYINT},
+      cityCode = #{citycode,jdbcType=VARCHAR},
+      center = #{center,jdbcType=VARCHAR},
+      parentId = #{parentid,jdbcType=INTEGER}
+    where areaId = #{areaid,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select areaId, areaCode, areaName, level, cityCode, center, parentId
+    from tb_area
+    where areaId = #{areaid,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select areaId, areaCode, areaName, level, cityCode, center, parentId
+    from tb_area
+    where parentId = #{parentid,jdbcType=INTEGER}
+  </select>
+</mapper>
