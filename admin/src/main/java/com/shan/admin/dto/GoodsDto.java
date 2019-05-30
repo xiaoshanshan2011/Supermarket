@@ -1,33 +1,36 @@
 package com.shan.admin.dto;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.Date;
 
 public class GoodsDto {
     private Long goodscode;
-
+    @NotNull(message = "barcode不能为空")
     private Long barcode;
-
+    @NotBlank(message = "classifyid不能为空")
     private String classifyid;
+    @NotBlank(message = "pclassifyid不能为空")
     private String pclassifyid;
-
+    @NotBlank(message = "goodsname不能为空")
     private String goodsname;
-
+    @NotBlank(message = "goodsimg不能为空")
     private String goodsimg;
-
+    @NotBlank(message = "goodsunit不能为空")
     private String goodsunit;
 
     private Integer ishot;
     private Integer goodstype;
-
+    @NotNull(message = "vipprice不能为空")
     private BigDecimal vipprice;
-
+    @NotNull(message = "discountsprice不能为空")
     private BigDecimal discountsprice;
-
+    @NotNull(message = "specialsaleprice不能为空")
     private BigDecimal specialsaleprice;
-
+    @NotNull(message = "wholesaleprice不能为空")
     private BigDecimal wholesaleprice;
-
+    @NotNull(message = "price不能为空")
     private BigDecimal price;
 
     private Integer deleted;

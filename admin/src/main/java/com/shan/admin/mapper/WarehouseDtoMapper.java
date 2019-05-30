@@ -12,6 +12,7 @@ public interface WarehouseDtoMapper {
 
     WarehouseDto selectByPrimaryKey(String warehouseid);
     WarehouseDto selectByPrimaryName(String name);
+    WarehouseDto selectByPrimarySn(String warehousesn);
 
     List<WarehouseDto> selectAll(ParamsBean paramsBean);
 

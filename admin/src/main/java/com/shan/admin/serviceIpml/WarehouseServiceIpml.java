@@ -37,11 +37,23 @@ public class WarehouseServiceIpml implements WarehouseService {
     public Result insert(WarehouseDto record) {
         if (TextUtils.isEmpty(record.getWarehousename()))
             return ResultUtils.error("warehousename必传");
+        if (TextUtils.isEmpty(record.getWarehousesn()))
+            return ResultUtils.error("warehousesn必传");
+        if (TextUtils.isEmpty(record.getWarehouseimg()))
+            return ResultUtils.error("warehouseimg必传");
+        if (record.getCityid() == null)
+            return ResultUtils.error("cityid必传");
+        if (TextUtils.isEmpty(record.getAddress()))
+            return ResultUtils.error("address必传");
         WarehouseDto dto = mapper.selectByPrimaryName(record.getWarehousename());
         if (dto != null)
             return ResultUtils.error("仓库名称已存在");
+        WarehouseDto dto2 = mapper.selectByPrimarySn(record.getWarehousesn());
+        if (dto2 != null)
+            return ResultUtils.error("仓库编号已存在");
         record.setWarehouseid(UUIDUtils.getNewUid());
         Date date = new Date();
+        record.setDeleted(0);
         record.setCreatetime(date);
         record.setUpdatetime(date);
         return HandleUtils.isSuccess(mapper.insert(record));
@@ -69,13 +81,22 @@ public class WarehouseServiceIpml implements WarehouseService {
         if (TextUtils.isEmpty(record.getWarehousename())) {
             return ResultUtils.error("warehousename字段必传");
         }
+        if (TextUtils.isEmpty(record.getWarehousesn())) {
+            return ResultUtils.error("warehousesn字段必传");
+        }
         WarehouseDto dto = mapper.selectByPrimaryKey(record.getWarehouseid());
         if (dto == null) {
             return ResultUtils.error("仓库不存在，修改失败");
-        } else if (!dto.getWarehousename().equals(record.getWarehousename())){
-            WarehouseDto list = mapper.selectByPrimaryName(record.getWarehousename());
-            if (list != null)
+        }
+        if (!dto.getWarehousename().equals(record.getWarehousename())){
+            WarehouseDto dto1 = mapper.selectByPrimaryName(record.getWarehousename());
+            if (dto1 != null)
                 return ResultUtils.error("仓库名称已存在");
+        }
+        if (!dto.getWarehousesn().equals(record.getWarehousesn())){
+            WarehouseDto dto2 = mapper.selectByPrimaryName(record.getWarehousesn());
+            if (dto2 != null)
+                return ResultUtils.error("仓库编号已存在");
         }
         if (!TextUtils.isEmpty(record.getWarehousename())) {
             dto.setWarehousename(record.getWarehousename());

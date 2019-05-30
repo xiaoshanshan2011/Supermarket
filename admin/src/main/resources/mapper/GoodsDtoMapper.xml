@@ -71,14 +71,6 @@
     from tb_goods
     where goodsCode = #{goodscode,jdbcType=BIGINT}
   </select>
-  <select id="selectByPrimaryKeyword" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select goodsCode, barcode, classifyId, pClassifyId, goodsName, goodsImg, goodsUnit, isHot, goodsType
-    vipPrice, discountsPrice, specialSalePrice, wholesalePrice, price, deleted, createTime,
-    updateTime, goodsDesc, goodsSpec
-    from tb_goods
-    where goodsCode = #{goodscode,jdbcType=BIGINT} or barcode = #{barcode,jdbcType=BIGINT}
-     or goodsName = #{goodsname,jdbcType=VARCHAR}
-  </select>
   <select id="selectAll" resultMap="BaseResultMap" >
     select goodsCode, barcode, classifyId, pClassifyId, goodsName, goodsImg, goodsUnit, isHot, goodsType
     vipPrice, discountsPrice, specialSalePrice, wholesalePrice, price, deleted, createTime, 

@@ -46,9 +46,28 @@
     from tb_warehouse
     where warehouseId = #{warehouseid,jdbcType=VARCHAR}
   </select>
+  <select id="selectByPrimaryName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select warehouseId, warehouseName, warehouseImg, warehouseSn, cityId, address, deleted,
+    createTime, updateTime, warehouseDesc
+    from tb_warehouse
+    where warehouseName = #{name,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByPrimarySn" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select warehouseId, warehouseName, warehouseImg, warehouseSn, cityId, address, deleted,
+    createTime, updateTime, warehouseDesc
+    from tb_warehouse
+    where warehouseSn = #{warehousesn,jdbcType=VARCHAR}
+  </select>
   <select id="selectAll" resultMap="BaseResultMap" >
     select warehouseId, warehouseName, warehouseImg, warehouseSn, cityId, address, deleted, 
     createTime, updateTime, warehouseDesc
     from tb_warehouse
+    <where>
+      <if test="keyword != null and keyword != ''" >
+        (warehouseId like #{keyword} or warehouseName like #{keyword} or warehouseSn like #{keyword})
+      </if>
+      and deleted = 0
+      order by createTime desc
+    </where>
   </select>
 </mapper>

@@ -11,7 +11,6 @@ public interface GoodsDtoMapper {
     int insert(GoodsDto record);
 
     GoodsDto selectByPrimaryKey(Long goodscode);
-    GoodsDto selectByPrimaryKeyword(GoodsDto record);
 
     List<GoodsDto> selectAll(GoodsParamsBean paramsBean);
 

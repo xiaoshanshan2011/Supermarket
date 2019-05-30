@@ -1,22 +1,19 @@
-package com.shan.admin.dto;
+package com.shan.admin.paramsbean;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
-public class WarehouseUserDto {
+public class WarehouseUserParamsBean {
+    @NotBlank(message = "userid不能为空")
     private String userid;
     @NotBlank(message = "username不能为空")
     private String username;
-    @NotBlank(message = "password不能为空")
     private String password;
     @NotBlank(message = "mobile不能为空")
     private String mobile;
-    @NotNull(message = "usertype不能为空")
     private Integer usertype;
-    @NotBlank(message = "address不能为空")
     private String address;
-    @NotNull(message = "cityid不能为空")
     private Integer cityid;
 
     private Integer deleted;
@@ -24,7 +21,6 @@ public class WarehouseUserDto {
     private Date createtime;
 
     private Date updatetime;
-    @NotBlank(message = "userphoto不能为空")
     private String userphoto;
 
     public Integer getCityid() {
