@@ -11,7 +11,9 @@ public class WarehouseDto {
 
     private String warehousesn;
 
+    private Integer provinceid;
     private Integer cityid;
+    private Integer districtid;
 
     private String address;
 
@@ -22,6 +24,50 @@ public class WarehouseDto {
     private Date updatetime;
 
     private String warehousedesc;
+
+    private AreaDto province;
+    private AreaDto city;
+    private AreaDto district;
+
+    public Integer getProvinceid() {
+        return provinceid;
+    }
+
+    public void setProvinceid(Integer provinceid) {
+        this.provinceid = provinceid;
+    }
+
+    public Integer getDistrictid() {
+        return districtid;
+    }
+
+    public void setDistrictid(Integer districtid) {
+        this.districtid = districtid;
+    }
+
+    public AreaDto getProvince() {
+        return province;
+    }
+
+    public void setProvince(AreaDto province) {
+        this.province = province;
+    }
+
+    public AreaDto getCity() {
+        return city;
+    }
+
+    public void setCity(AreaDto city) {
+        this.city = city;
+    }
+
+    public AreaDto getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(AreaDto district) {
+        this.district = district;
+    }
 
     public String getWarehouseid() {
         return warehouseid;

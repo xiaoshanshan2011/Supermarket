@@ -8,7 +8,6 @@ import com.publib.utils.ResultUtils;
 import com.publib.utils.TextUtils;
 import com.publib.utils.UUIDUtils;
 import com.shan.admin.dto.DatagridResult;
-import com.shan.admin.dto.GoodsDto;
 import com.shan.admin.dto.WarehouseDto;
 import com.shan.admin.mapper.WarehouseDtoMapper;
 import com.shan.admin.paramsbean.ParamsBean;

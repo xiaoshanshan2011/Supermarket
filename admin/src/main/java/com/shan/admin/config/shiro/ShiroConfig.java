@@ -89,6 +89,10 @@ public class ShiroConfig {
         DefaultShiroFilterChainDefinition chainDefinition = new DefaultShiroFilterChainDefinition();
         chainDefinition.addPathDefinition("/api/admin/login", "noSessionCreation,anon");
         chainDefinition.addPathDefinition("/api/admin/logout", "noSessionCreation,authcToken[permissive]");
+        chainDefinition.addPathDefinition("/swagger-resources/**", "anon");
+        chainDefinition.addPathDefinition("/webjars/**", "anon");
+        chainDefinition.addPathDefinition("/v2/**", "anon");
+        chainDefinition.addPathDefinition("/swagger-ui.html/**", "anon");
         chainDefinition.addPathDefinition("/test", "anon");
         chainDefinition.addPathDefinition("/image/**", "anon");
         chainDefinition.addPathDefinition("/admin/**", "noSessionCreation,authcToken,anyRole[admin,manager]"); //只允许admin或manager角色的用户访问
