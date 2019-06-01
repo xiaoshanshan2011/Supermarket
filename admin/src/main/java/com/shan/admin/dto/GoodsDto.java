@@ -43,16 +43,9 @@ public class GoodsDto {
 
     private String goodsspec;
 
-    private GoodsClassifyDto classify;
     private GoodsClassifyDto pclassify;
 
-    public GoodsClassifyDto getClassify() {
-        return classify;
-    }
-
-    public void setClassify(GoodsClassifyDto classify) {
-        this.classify = classify;
-    }
+    private GoodsClassifyDto classify;
 
     public GoodsClassifyDto getPclassify() {
         return pclassify;
@@ -60,6 +53,14 @@ public class GoodsDto {
 
     public void setPclassify(GoodsClassifyDto pclassify) {
         this.pclassify = pclassify;
+    }
+
+    public GoodsClassifyDto getClassify() {
+        return classify;
+    }
+
+    public void setClassify(GoodsClassifyDto classify) {
+        this.classify = classify;
     }
 
     public Integer getGoodstype() {

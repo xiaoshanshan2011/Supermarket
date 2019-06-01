@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.shan.admin.mapper.GoodsDtoMapper" >
-  <resultMap id="BaseResultMap" type="com.shan.admin.dto.GoodsDto" >
-    <id column="goodsCode" property="goodscode" jdbcType="BIGINT" />
-    <result column="barcode" property="barcode" jdbcType="BIGINT" />
-    <result column="classifyId" property="classifyid" jdbcType="VARCHAR" />
-    <result column="pClassifyId" property="pclassifyid" jdbcType="VARCHAR" />
-    <result column="goodsName" property="goodsname" jdbcType="VARCHAR" />
-    <result column="goodsImg" property="goodsimg" jdbcType="VARCHAR" />
-    <result column="goodsUnit" property="goodsunit" jdbcType="VARCHAR" />
-    <result column="isHot" property="ishot" jdbcType="INTEGER" />
-    <result column="goodsType" property="goodstype" jdbcType="INTEGER" />
-    <result column="vipPrice" property="vipprice" jdbcType="DECIMAL" />
-    <result column="discountsPrice" property="discountsprice" jdbcType="DECIMAL" />
-    <result column="specialSalePrice" property="specialsaleprice" jdbcType="DECIMAL" />
-    <result column="wholesalePrice" property="wholesaleprice" jdbcType="DECIMAL" />
-    <result column="price" property="price" jdbcType="DECIMAL" />
-    <result column="deleted" property="deleted" jdbcType="INTEGER" />
-    <result column="createTime" property="createtime" jdbcType="TIMESTAMP" />
-    <result column="updateTime" property="updatetime" jdbcType="TIMESTAMP" />
-    <result column="goodsDesc" property="goodsdesc" jdbcType="LONGVARCHAR" />
-    <result column="goodsSpec" property="goodsspec" jdbcType="LONGVARCHAR" />
-  </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+<mapper namespace="com.shan.admin.mapper.GoodsDtoMapper">
+    <resultMap id="BaseResultMap" type="com.shan.admin.dto.GoodsDto">
+        <id column="goodsCode" property="goodscode" jdbcType="BIGINT"/>
+        <result column="barcode" property="barcode" jdbcType="BIGINT"/>
+        <result column="classifyId" property="classifyid" jdbcType="VARCHAR"/>
+        <result column="pClassifyId" property="pclassifyid" jdbcType="VARCHAR"/>
+        <result column="goodsName" property="goodsname" jdbcType="VARCHAR"/>
+        <result column="goodsImg" property="goodsimg" jdbcType="VARCHAR"/>
+        <result column="goodsUnit" property="goodsunit" jdbcType="VARCHAR"/>
+        <result column="isHot" property="ishot" jdbcType="INTEGER"/>
+        <result column="goodsType" property="goodstype" jdbcType="INTEGER"/>
+        <result column="vipPrice" property="vipprice" jdbcType="DECIMAL"/>
+        <result column="discountsPrice" property="discountsprice" jdbcType="DECIMAL"/>
+        <result column="specialSalePrice" property="specialsaleprice" jdbcType="DECIMAL"/>
+        <result column="wholesalePrice" property="wholesaleprice" jdbcType="DECIMAL"/>
+        <result column="price" property="price" jdbcType="DECIMAL"/>
+        <result column="deleted" property="deleted" jdbcType="INTEGER"/>
+        <result column="createTime" property="createtime" jdbcType="TIMESTAMP"/>
+        <result column="updateTime" property="updatetime" jdbcType="TIMESTAMP"/>
+        <result column="goodsDesc" property="goodsdesc" jdbcType="LONGVARCHAR"/>
+        <result column="goodsSpec" property="goodsspec" jdbcType="LONGVARCHAR"/>
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from tb_goods
     where goodsCode = #{goodscode,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.shan.admin.dto.GoodsDto" >
+    <insert id="insert" parameterType="com.shan.admin.dto.GoodsDto">
     insert into tb_goods (goodsCode, barcode, classifyId, pClassifyId,
       goodsName, goodsImg,
       goodsUnit, isHot, goodsType, vipPrice,
@@ -42,7 +42,7 @@
       #{updatetime,jdbcType=TIMESTAMP}, #{goodsdesc,jdbcType=LONGVARCHAR}, #{goodsspec,jdbcType=LONGVARCHAR}
       )
   </insert>
-  <update id="updateByPrimaryKey" parameterType="com.shan.admin.dto.GoodsDto" >
+    <update id="updateByPrimaryKey" parameterType="com.shan.admin.dto.GoodsDto">
     update tb_goods
     set barcode = #{barcode,jdbcType=BIGINT},
       classifyId = #{classifyid,jdbcType=VARCHAR},
@@ -64,67 +64,56 @@
       goodsSpec = #{goodsspec,jdbcType=LONGVARCHAR}
     where goodsCode = #{goodscode,jdbcType=BIGINT}
   </update>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
     select goodsCode, barcode, classifyId, pClassifyId, goodsName, goodsImg, goodsUnit, isHot, goodsType,
     vipPrice, discountsPrice, specialSalePrice, wholesalePrice, price, deleted, createTime, 
     updateTime, goodsDesc, goodsSpec
     from tb_goods
     where goodsCode = #{goodscode,jdbcType=BIGINT}
   </select>
-  <select id="selectAll" resultMap="GoodsResultMap" >
-    select *
-    from tb_goods, tb_goods_classify
-    <where>
-      <if test="keyword != null and keyword != ''" >
-        (tb_goods.goodsCode like #{keyword} or tb_goods.barcode like #{keyword} or tb_goods.goodsName like #{keyword})
-      </if>
-      <if test="classifyid != null and classifyid != ''" >
-        and tb_goods.classifyId like #{classifyid}
-      </if>
-      <if test="pclassifyid != null and pclassifyid != ''" >
-        and tb_goods.pClassifyId like #{pclassifyid}
-      </if>
-      and tb_goods.classifyId = tb_goods_classify.classifyId
-    </where>
-    order by tb_goods.createTime desc
-  </select>
+    <select id="selectAll" resultMap="GoodsResultMap">
+        select *
+        from tb_goods
+        <where>
+            <if test="keyword != null and keyword != ''">
+                (goodsCode like #{keyword} or barcode like #{keyword} or goodsName like #{keyword})
+            </if>
+            <if test="classifyid != null and classifyid != ''">
+                and classifyId = #{classifyid}
+            </if>
+            <if test="pclassifyid != null and pclassifyid != ''">
+                and pClassifyId = #{pclassifyid}
+            </if>
+        </where>
+        order by createTime desc
+    </select>
 
-  <!-- 使用resultMap映射实体类和字段之间的一一对应关系 -->
-  <resultMap type="com.shan.admin.dto.GoodsDto" id="GoodsResultMap">
-    <id column="goodsCode" property="goodscode" jdbcType="BIGINT" />
-    <result column="barcode" property="barcode" jdbcType="BIGINT" />
-    <result column="classifyId" property="classifyid" jdbcType="VARCHAR" />
-    <result column="pClassifyId" property="pclassifyid" jdbcType="VARCHAR" />
-    <result column="goodsName" property="goodsname" jdbcType="VARCHAR" />
-    <result column="goodsImg" property="goodsimg" jdbcType="VARCHAR" />
-    <result column="goodsUnit" property="goodsunit" jdbcType="VARCHAR" />
-    <result column="isHot" property="ishot" jdbcType="INTEGER" />
-    <result column="goodsType" property="goodstype" jdbcType="INTEGER" />
-    <result column="vipPrice" property="vipprice" jdbcType="DECIMAL" />
-    <result column="discountsPrice" property="discountsprice" jdbcType="DECIMAL" />
-    <result column="specialSalePrice" property="specialsaleprice" jdbcType="DECIMAL" />
-    <result column="wholesalePrice" property="wholesaleprice" jdbcType="DECIMAL" />
-    <result column="price" property="price" jdbcType="DECIMAL" />
-    <result column="deleted" property="deleted" jdbcType="INTEGER" />
-    <result column="createTime" property="createtime" jdbcType="TIMESTAMP" />
-    <result column="updateTime" property="updatetime" jdbcType="TIMESTAMP" />
-    <result column="goodsDesc" property="goodsdesc" jdbcType="LONGVARCHAR" />
-    <result column="goodsSpec" property="goodsspec" jdbcType="LONGVARCHAR" />
-    <association property="classify" javaType="com.shan.admin.dto.GoodsClassifyDto">
-      <id column="classifyId" property="classifyid" jdbcType="VARCHAR" />
-      <result column="parentId" property="parentid" jdbcType="VARCHAR" />
-      <result column="name" property="name" jdbcType="VARCHAR" />
-      <result column="deleted" property="deleted" jdbcType="INTEGER" />
-      <result column="createTime" property="createtime" jdbcType="TIMESTAMP" />
-      <result column="updateTime" property="updatetime" jdbcType="TIMESTAMP" />
-    </association>
-    <association property="pclassify" javaType="com.shan.admin.dto.GoodsClassifyDto">
-      <id column="classifyId" property="classifyid" jdbcType="VARCHAR" />
-      <result column="parentId" property="parentid" jdbcType="VARCHAR" />
-      <result column="name" property="name" jdbcType="VARCHAR" />
-      <result column="deleted" property="deleted" jdbcType="INTEGER" />
-      <result column="createTime" property="createtime" jdbcType="TIMESTAMP" />
-      <result column="updateTime" property="updatetime" jdbcType="TIMESTAMP" />
-    </association>
-  </resultMap>
+    <!-- 使用resultMap映射实体类和字段之间的一一对应关系 -->
+    <resultMap type="com.shan.admin.dto.GoodsDto" id="GoodsResultMap">
+        <id column="goodsCode" property="goodscode" jdbcType="BIGINT"/>
+        <result column="barcode" property="barcode" jdbcType="BIGINT"/>
+        <result column="classifyId" property="classifyid" jdbcType="VARCHAR"/>
+        <result column="pClassifyId" property="pclassifyid" jdbcType="VARCHAR"/>
+        <result column="goodsName" property="goodsname" jdbcType="VARCHAR"/>
+        <result column="goodsImg" property="goodsimg" jdbcType="VARCHAR"/>
+        <result column="goodsUnit" property="goodsunit" jdbcType="VARCHAR"/>
+        <result column="isHot" property="ishot" jdbcType="INTEGER"/>
+        <result column="goodsType" property="goodstype" jdbcType="INTEGER"/>
+        <result column="vipPrice" property="vipprice" jdbcType="DECIMAL"/>
+        <result column="discountsPrice" property="discountsprice" jdbcType="DECIMAL"/>
+        <result column="specialSalePrice" property="specialsaleprice" jdbcType="DECIMAL"/>
+        <result column="wholesalePrice" property="wholesaleprice" jdbcType="DECIMAL"/>
+        <result column="price" property="price" jdbcType="DECIMAL"/>
+        <result column="deleted" property="deleted" jdbcType="INTEGER"/>
+        <result column="createTime" property="createtime" jdbcType="TIMESTAMP"/>
+        <result column="updateTime" property="updatetime" jdbcType="TIMESTAMP"/>
+        <result column="goodsDesc" property="goodsdesc" jdbcType="LONGVARCHAR"/>
+        <result column="goodsSpec" property="goodsspec" jdbcType="LONGVARCHAR"/>
+        <association property="classify" column="classifyid" select="getGoodsClassify"/>
+        <association property="pclassify" column="pclassifyid" select="getGoodsClassify"/>
+    </resultMap>
+
+    <select id="getGoodsClassify" resultType="com.shan.admin.dto.GoodsClassifyDto">
+        SELECT * FROM tb_goods_classify WHERE classifyId=#{classifyid}
+    </select>
 </mapper>
