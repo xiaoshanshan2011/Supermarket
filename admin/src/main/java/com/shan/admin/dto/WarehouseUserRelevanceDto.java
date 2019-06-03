@@ -10,10 +10,21 @@ public class WarehouseUserRelevanceDto {
     private String warehouseid;
 
     private Integer deleted;
+    private Integer usertype;
 
     private Date createtime;
 
     private Date updatetime;
+
+    private WarehouseDto warehouse;
+
+    public WarehouseDto getWarehouse() {
+        return warehouse;
+    }
+
+    public void setWarehouse(WarehouseDto warehouse) {
+        this.warehouse = warehouse;
+    }
 
     public String getId() {
         return id;
@@ -61,5 +72,13 @@ public class WarehouseUserRelevanceDto {
 
     public void setUpdatetime(Date updatetime) {
         this.updatetime = updatetime;
+    }
+
+    public Integer getUsertype() {
+        return usertype;
+    }
+
+    public void setUsertype(Integer usertype) {
+        this.usertype = usertype;
     }
 }

@@ -10,26 +10,26 @@ public class WarehouseUserParamsBean {
     @NotBlank(message = "username不能为空")
     private String username;
     private String password;
+    @NotBlank(message = "nickname不能为空")
+    private String nickname;
     @NotBlank(message = "mobile不能为空")
     private String mobile;
-    private Integer usertype;
-    private String address;
+    @NotNull(message = "provinceid不能为空")
+    private Integer provinceid;
+    @NotNull(message = "cityid不能为空")
     private Integer cityid;
+    @NotNull(message = "districtid不能为空")
+    private Integer districtid;
+    @NotBlank(message = "address不能为空")
+    private String address;
 
     private Integer deleted;
 
     private Date createtime;
 
     private Date updatetime;
+    @NotBlank(message = "userphoto不能为空")
     private String userphoto;
-
-    public Integer getCityid() {
-        return cityid;
-    }
-
-    public void setCityid(Integer cityid) {
-        this.cityid = cityid;
-    }
 
     public String getUserid() {
         return userid;
@@ -55,6 +55,14 @@ public class WarehouseUserParamsBean {
         this.password = password == null ? null : password.trim();
     }
 
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname == null ? null : nickname.trim();
+    }
+
     public String getMobile() {
         return mobile;
     }
@@ -63,12 +71,28 @@ public class WarehouseUserParamsBean {
         this.mobile = mobile == null ? null : mobile.trim();
     }
 
-    public Integer getUsertype() {
-        return usertype;
+    public Integer getProvinceid() {
+        return provinceid;
     }
 
-    public void setUsertype(Integer usertype) {
-        this.usertype = usertype;
+    public void setProvinceid(Integer provinceid) {
+        this.provinceid = provinceid;
+    }
+
+    public Integer getCityid() {
+        return cityid;
+    }
+
+    public void setCityid(Integer cityid) {
+        this.cityid = cityid;
+    }
+
+    public Integer getDistrictid() {
+        return districtid;
+    }
+
+    public void setDistrictid(Integer districtid) {
+        this.districtid = districtid;
     }
 
     public String getAddress() {

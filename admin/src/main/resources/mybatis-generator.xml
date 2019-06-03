@@ -16,7 +16,7 @@
         </commentGenerator>
         <!-- 配置数据源 -->
         <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
-                        connectionURL="jdbc:mysql://47.106.164.186:3306/supermarket"
+                        connectionURL="jdbc:mysql://120.79.68.118:3306/supermarket"
                         userId="root"
                         password="123456mn">
             <!--MySQL 8.x 需要指定服务器的时区-->
@@ -56,6 +56,6 @@
         </javaClientGenerator>
 
         <!-- 指定我们要操作的表名和生成的javabean类名 -->
-        <table tableName="tb_area" domainObjectName="AreaDto"/>
+        <table tableName="tb_warehouse_user" domainObjectName="WarehouseUserDto"/>
     </context>
 </generatorConfiguration>

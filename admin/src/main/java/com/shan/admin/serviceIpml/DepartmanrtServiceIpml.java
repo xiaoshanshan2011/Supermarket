@@ -43,7 +43,11 @@ public class DepartmanrtServiceIpml implements DepartmanrtService {
         if (TextUtils.isEmpty(departmentid)) {
             return ResultUtils.error("departmentid字段必传");
         }
-        return HandleUtils.isSuccess(mapper.deleteByPrimaryKey(departmentid));
+        try {
+            return HandleUtils.isSuccess(mapper.deleteByPrimaryKey(departmentid));
+        } catch (Exception e) {
+            return ResultUtils.error("该部门已被用，删除失败");
+        }
     }
 
     @Override
@@ -57,7 +61,7 @@ public class DepartmanrtServiceIpml implements DepartmanrtService {
         SysDepartmentDto dto = mapper.selectByPrimaryKey(record.getDepartmentid());
         if (dto == null) {
             return ResultUtils.error("部门不存在，修改失败");
-        } else if (!dto.getDepartmentname().equals(record.getDepartmentname())){
+        } else if (!dto.getDepartmentname().equals(record.getDepartmentname())) {
             List<SysDepartmentDto> list = mapper.selectByPrimaryName(record.getDepartmentname());
             if (list != null && list.size() > 0)
                 return ResultUtils.error("部门名称已存在");

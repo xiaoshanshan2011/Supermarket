@@ -4,15 +4,15 @@ package com.enums;
  * @Author: chenjunshan
  * @Date: 18-12-30 下午2:52
  */
-public enum AreaEnum {
-    PROVINCE(1, "省"),
-    CITY(2, "市"),
-    COUNTY(3, "区"),
+public enum WarehouseUserTypeEnum {
+    ADMINISTRATOR(1, "仓库管理员"),
+    DELIVERYMAN(2, "配送员"),
+    BUYER(3, "采购员"),
     ;
     private Integer id;
     private String typeName;
 
-    AreaEnum(Integer id, String typeName) {
+    WarehouseUserTypeEnum(Integer id, String typeName) {
         this.id = id;
         this.typeName = typeName;
     }

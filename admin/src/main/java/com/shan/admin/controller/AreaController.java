@@ -19,7 +19,7 @@ public class AreaController {
     private AreaService service;
 
     @GetMapping(value = "/api/admin/findArea")
-    public Result findGroup(@RequestParam("parentId") int parentId) {
+    public Result findArea(@RequestParam("parentId") int parentId) {
         return service.selectArea(parentId);
     }
 }

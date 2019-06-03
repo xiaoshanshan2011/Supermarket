@@ -70,6 +70,15 @@
             <if test="keyword != null and keyword != ''">
                 (warehouseId like #{keyword} or warehouseName like #{keyword} or warehouseSn like #{keyword})
             </if>
+            <if test="provinceid != null and provinceid != 0">
+                and provinceId = #{provinceid,jdbcType=INTEGER}
+            </if>
+            <if test="cityid != null and cityid != 0">
+                and cityId = #{cityid,jdbcType=INTEGER}
+            </if>
+            <if test="districtid != null and districtid != 0">
+                and districtId = #{districtid,jdbcType=INTEGER}
+            </if>
             and deleted = 0
             order by createTime desc
         </where>

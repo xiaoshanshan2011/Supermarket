@@ -10,14 +10,18 @@ public class WarehouseUserDto {
     private String username;
     @NotBlank(message = "password不能为空")
     private String password;
+    @NotBlank(message = "nickname不能为空")
+    private String nickname;
     @NotBlank(message = "mobile不能为空")
     private String mobile;
-    @NotNull(message = "usertype不能为空")
-    private Integer usertype;
-    @NotBlank(message = "address不能为空")
-    private String address;
+    @NotNull(message = "provinceid不能为空")
+    private Integer provinceid;
     @NotNull(message = "cityid不能为空")
     private Integer cityid;
+    @NotNull(message = "districtid不能为空")
+    private Integer districtid;
+    @NotBlank(message = "address不能为空")
+    private String address;
 
     private Integer deleted;
 
@@ -27,12 +31,42 @@ public class WarehouseUserDto {
     @NotBlank(message = "userphoto不能为空")
     private String userphoto;
 
-    public Integer getCityid() {
-        return cityid;
+    private AreaDto province;
+    private AreaDto city;
+    private AreaDto district;
+
+    private WarehouseUserRelevanceDto warehouseUserRelevance;
+
+    public WarehouseUserRelevanceDto getWarehouseUserRelevance() {
+        return warehouseUserRelevance;
     }
 
-    public void setCityid(Integer cityid) {
-        this.cityid = cityid;
+    public void setWarehouseUserRelevance(WarehouseUserRelevanceDto warehouseUserRelevance) {
+        this.warehouseUserRelevance = warehouseUserRelevance;
+    }
+
+    public AreaDto getProvince() {
+        return province;
+    }
+
+    public void setProvince(AreaDto province) {
+        this.province = province;
+    }
+
+    public AreaDto getCity() {
+        return city;
+    }
+
+    public void setCity(AreaDto city) {
+        this.city = city;
+    }
+
+    public AreaDto getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(AreaDto district) {
+        this.district = district;
     }
 
     public String getUserid() {
@@ -59,6 +93,14 @@ public class WarehouseUserDto {
         this.password = password == null ? null : password.trim();
     }
 
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname == null ? null : nickname.trim();
+    }
+
     public String getMobile() {
         return mobile;
     }
@@ -67,12 +109,28 @@ public class WarehouseUserDto {
         this.mobile = mobile == null ? null : mobile.trim();
     }
 
-    public Integer getUsertype() {
-        return usertype;
+    public Integer getProvinceid() {
+        return provinceid;
     }
 
-    public void setUsertype(Integer usertype) {
-        this.usertype = usertype;
+    public void setProvinceid(Integer provinceid) {
+        this.provinceid = provinceid;
+    }
+
+    public Integer getCityid() {
+        return cityid;
+    }
+
+    public void setCityid(Integer cityid) {
+        this.cityid = cityid;
+    }
+
+    public Integer getDistrictid() {
+        return districtid;
+    }
+
+    public void setDistrictid(Integer districtid) {
+        this.districtid = districtid;
     }
 
     public String getAddress() {

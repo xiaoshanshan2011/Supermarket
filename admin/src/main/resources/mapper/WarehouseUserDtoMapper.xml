@@ -1,40 +1,46 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.shan.admin.mapper.WarehouseUserDtoMapper">
-    <resultMap id="BaseResultMap" type="com.shan.admin.dto.WarehouseUserDto">
-        <id column="userId" property="userid" jdbcType="VARCHAR"/>
-        <result column="username" property="username" jdbcType="VARCHAR"/>
-        <result column="password" property="password" jdbcType="VARCHAR"/>
-        <result column="mobile" property="mobile" jdbcType="VARCHAR"/>
-        <result column="userType" property="usertype" jdbcType="INTEGER"/>
-        <result column="cityId" property="cityid" jdbcType="INTEGER"/>
-        <result column="address" property="address" jdbcType="VARCHAR"/>
-        <result column="deleted" property="deleted" jdbcType="INTEGER"/>
-        <result column="createTime" property="createtime" jdbcType="TIMESTAMP"/>
-        <result column="updateTime" property="updatetime" jdbcType="TIMESTAMP"/>
-        <result column="userPhoto" property="userphoto" jdbcType="LONGVARCHAR"/>
-    </resultMap>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+<mapper namespace="com.shan.admin.mapper.WarehouseUserDtoMapper" >
+  <resultMap id="BaseResultMap" type="com.shan.admin.dto.WarehouseUserDto" >
+    <id column="userId" property="userid" jdbcType="VARCHAR" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="nickName" property="nickname" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="provinceId" property="provinceid" jdbcType="INTEGER" />
+    <result column="cityId" property="cityid" jdbcType="INTEGER" />
+    <result column="districtId" property="districtid" jdbcType="INTEGER" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="INTEGER" />
+    <result column="createTime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="updateTime" property="updatetime" jdbcType="TIMESTAMP" />
+    <result column="userPhoto" property="userphoto" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from tb_warehouse_user
     where userId = #{userid,jdbcType=VARCHAR}
   </delete>
-    <insert id="insert" parameterType="com.shan.admin.dto.WarehouseUserDto">
+  <insert id="insert" parameterType="com.shan.admin.dto.WarehouseUserDto" >
     insert into tb_warehouse_user (userId, username, password, 
-      mobile, userType, cityId, address,
+      nickName, mobile, provinceId, 
+      cityId, districtId, address, 
       deleted, createTime, updateTime, 
       userPhoto)
     values (#{userid,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{mobile,jdbcType=VARCHAR}, #{usertype,jdbcType=INTEGER}, #{cityid,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR},
+      #{nickname,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{provinceid,jdbcType=INTEGER}, 
+      #{cityid,jdbcType=INTEGER}, #{districtid,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR}, 
       #{deleted,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP}, 
       #{userphoto,jdbcType=LONGVARCHAR})
   </insert>
-    <update id="updateByPrimaryKey" parameterType="com.shan.admin.dto.WarehouseUserDto">
+  <update id="updateByPrimaryKey" parameterType="com.shan.admin.dto.WarehouseUserDto" >
     update tb_warehouse_user
     set username = #{username,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
+      nickName = #{nickname,jdbcType=VARCHAR},
       mobile = #{mobile,jdbcType=VARCHAR},
-      userType = #{usertype,jdbcType=INTEGER},
+      provinceId = #{provinceid,jdbcType=INTEGER},
       cityId = #{cityid,jdbcType=INTEGER},
+      districtId = #{districtid,jdbcType=INTEGER},
       address = #{address,jdbcType=VARCHAR},
       deleted = #{deleted,jdbcType=INTEGER},
       createTime = #{createtime,jdbcType=TIMESTAMP},
@@ -42,15 +48,79 @@
       userPhoto = #{userphoto,jdbcType=LONGVARCHAR}
     where userId = #{userid,jdbcType=VARCHAR}
   </update>
-    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
-    select userId, username, password, mobile, userType, cityId, address, deleted, createTime,
-    updateTime, userPhoto
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select userId, username, password, nickName, mobile, provinceId, cityId, districtId, 
+    address, deleted, createTime, updateTime, userPhoto
     from tb_warehouse_user
     where userId = #{userid,jdbcType=VARCHAR}
   </select>
-    <select id="selectAll" resultMap="BaseResultMap">
-    select userId, username, password, mobile, userType, cityId, address, deleted, createTime,
-    updateTime, userPhoto
+  <select id="selectByPrimaryName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select userId, username, password, nickName, mobile, provinceId, cityId, districtId,
+    address, deleted, createTime, updateTime, userPhoto
     from tb_warehouse_user
+    where username = #{username,jdbcType=VARCHAR}
   </select>
+  <select id="selectByPrimaryMobile" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select userId, username, password, nickName, mobile, provinceId, cityId, districtId,
+    address, deleted, createTime, updateTime, userPhoto
+    from tb_warehouse_user
+    where mobile = #{mobile,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="AreaResultMap" >
+    select userId, username, password, nickName, mobile, provinceId, cityId, districtId, 
+    address, deleted, createTime, updateTime, userPhoto
+    from tb_warehouse_user
+    <where>
+      <if test="keyword != null and keyword != ''">
+        (username like #{keyword} or nickName like #{keyword} or mobile like #{keyword})
+      </if>
+      and deleted = 0
+      order by createTime desc
+    </where>
+  </select>
+
+  <!-- 使用resultMap映射实体类和字段之间的一一对应关系 -->
+  <resultMap type="com.shan.admin.dto.WarehouseUserDto" id="AreaResultMap">
+    <id column="userId" property="userid" jdbcType="VARCHAR" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="nickName" property="nickname" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="provinceId" property="provinceid" jdbcType="INTEGER" />
+    <result column="cityId" property="cityid" jdbcType="INTEGER" />
+    <result column="districtId" property="districtid" jdbcType="INTEGER" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="INTEGER" />
+    <result column="createTime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="updateTime" property="updatetime" jdbcType="TIMESTAMP" />
+    <result column="userPhoto" property="userphoto" jdbcType="LONGVARCHAR" />
+    <association property="province" column="provinceid" select="getArea"/>
+    <association property="city" column="cityid" select="getArea"/>
+    <association property="district" column="districtid" select="getArea"/>
+    <association property="warehouseUserRelevance" column="userid" select="getWarehouseUserRelevance"/>
+  </resultMap>
+
+  <select id="getArea" resultType="com.shan.admin.dto.AreaDto">
+        SELECT * FROM tb_area WHERE areaId=#{areaid}
+    </select>
+
+  <select id="getWarehouseUserRelevance" resultMap="WarehouseResultMap">
+        SELECT * FROM tb_warehouse_user_relevance WHERE userId=#{userid}
+    </select>
+
+  <!-- 使用resultMap映射实体类和字段之间的一一对应关系 -->
+  <resultMap type="com.shan.admin.dto.WarehouseUserRelevanceDto" id="WarehouseResultMap">
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="userId" property="userid" jdbcType="VARCHAR" />
+    <result column="warehouseId" property="warehouseid" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="INTEGER" />
+    <result column="userType" property="usertype" jdbcType="INTEGER" />
+    <result column="createTime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="updateTime" property="updatetime" jdbcType="TIMESTAMP" />
+    <association property="warehouse" column="warehouseid" select="getWarehouse"/>
+  </resultMap>
+
+  <select id="getWarehouse" resultType="com.shan.admin.dto.WarehouseDto">
+        SELECT * FROM tb_warehouse WHERE warehouseid=#{warehouseid}
+    </select>
 </mapper>

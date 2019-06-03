@@ -2,7 +2,7 @@ package com.shan.admin.controller;
 
 import com.publib.bean.Result;
 import com.shan.admin.dto.WarehouseDto;
-import com.shan.admin.paramsbean.ParamsBean;
+import com.shan.admin.paramsbean.WarehouseParamsBean;
 import com.shan.admin.service.WarehouseService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +19,7 @@ public class WarehouseController {
     private WarehouseService service;
     
     @GetMapping(value = "/api/admin/selectWarehouse")
-    public Result selectWarehouse(@Valid ParamsBean paramsBean){
+    public Result selectWarehouse(@Valid WarehouseParamsBean paramsBean){
         return service.selectAll(paramsBean);
     }
     @PostMapping(value = "/api/admin/insertWarehouse")

@@ -10,7 +10,7 @@ import com.publib.utils.UUIDUtils;
 import com.shan.admin.dto.DatagridResult;
 import com.shan.admin.dto.WarehouseDto;
 import com.shan.admin.mapper.WarehouseDtoMapper;
-import com.shan.admin.paramsbean.ParamsBean;
+import com.shan.admin.paramsbean.WarehouseParamsBean;
 import com.shan.admin.service.WarehouseService;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +24,7 @@ public class WarehouseServiceIpml implements WarehouseService {
     private WarehouseDtoMapper mapper;
 
     @Override
-    public Result selectAll(ParamsBean paramsBean) {
+    public Result selectAll(WarehouseParamsBean paramsBean) {
         PageHelper.startPage(paramsBean.getPage(), paramsBean.getLimit());
         paramsBean.setKeyword("%" + paramsBean.getKeyword() + "%");
         List<WarehouseDto> list = mapper.selectAll(paramsBean);
@@ -112,8 +112,14 @@ public class WarehouseServiceIpml implements WarehouseService {
         if (!TextUtils.isEmpty(record.getAddress())) {
             dto.setAddress(record.getAddress());
         }
+        if (record.getProvinceid() != null) {
+            dto.setProvinceid(record.getProvinceid());
+        }
         if (record.getCityid() != null) {
             dto.setCityid(record.getCityid());
+        }
+        if (record.getDistrictid() != null) {
+            dto.setDistrictid(record.getDistrictid());
         }
         dto.setUpdatetime(new Date());
         return HandleUtils.isSuccess(mapper.updateByPrimaryKey(dto));

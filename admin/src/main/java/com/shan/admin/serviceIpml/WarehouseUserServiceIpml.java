@@ -8,21 +8,18 @@ import com.publib.utils.HandleUtils;
 import com.publib.utils.ResultUtils;
 import com.publib.utils.TextUtils;
 import com.publib.utils.UUIDUtils;
+import com.shan.admin.config.shiro.DbShiroRealm;
 import com.shan.admin.dto.DatagridResult;
 import com.shan.admin.dto.WarehouseUserDto;
 import com.shan.admin.mapper.WarehouseUserDtoMapper;
 import com.shan.admin.paramsbean.ParamsBean;
 import com.shan.admin.paramsbean.WarehouseUserParamsBean;
 import com.shan.admin.service.WarehouseUserService;
-import com.shan.admin.utils.FiledBean;
 import com.shan.admin.utils.FiledReplaceUtils;
+import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -53,6 +50,8 @@ public class WarehouseUserServiceIpml implements WarehouseUserService {
         record.setDeleted(0);
         record.setCreatetime(date);
         record.setUpdatetime(date);
+        String newPassword = new Sha256Hash(String.valueOf(record.getPassword()), DbShiroRealm.encryptSalt).toHex();
+        record.setPassword(newPassword);
         return HandleUtils.isSuccess(mapper.insert(record));
     }
 

@@ -6,6 +6,7 @@
     <result column="userId" property="userid" jdbcType="VARCHAR" />
     <result column="warehouseId" property="warehouseid" jdbcType="VARCHAR" />
     <result column="deleted" property="deleted" jdbcType="INTEGER" />
+    <result column="userType" property="usertype" jdbcType="INTEGER" />
     <result column="createTime" property="createtime" jdbcType="TIMESTAMP" />
     <result column="updateTime" property="updatetime" jdbcType="TIMESTAMP" />
   </resultMap>
@@ -15,10 +16,10 @@
   </delete>
   <insert id="insert" parameterType="com.shan.admin.dto.WarehouseUserRelevanceDto" >
     insert into tb_warehouse_user_relevance (id, userId, warehouseId, 
-      deleted, createTime, updateTime
+      deleted, userType, createTime, updateTime
       )
     values (#{id,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, #{warehouseid,jdbcType=VARCHAR}, 
-      #{deleted,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP}
+      #{deleted,jdbcType=INTEGER}, #{usertype,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP}
       )
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.shan.admin.dto.WarehouseUserRelevanceDto" >
@@ -26,17 +27,18 @@
     set userId = #{userid,jdbcType=VARCHAR},
       warehouseId = #{warehouseid,jdbcType=VARCHAR},
       deleted = #{deleted,jdbcType=INTEGER},
+      userType = #{usertype,jdbcType=INTEGER},
       createTime = #{createtime,jdbcType=TIMESTAMP},
       updateTime = #{updatetime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=VARCHAR}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select id, userId, warehouseId, deleted, createTime, updateTime
+    select id, userId, warehouseId, deleted, usertype, createTime, updateTime
     from tb_warehouse_user_relevance
     where id = #{id,jdbcType=VARCHAR}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
-    select id, userId, warehouseId, deleted, createTime, updateTime
+    select id, userId, warehouseId, deleted, usertype, createTime, updateTime
     from tb_warehouse_user_relevance
   </select>
 </mapper>
