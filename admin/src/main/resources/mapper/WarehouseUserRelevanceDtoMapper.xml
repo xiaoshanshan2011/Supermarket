@@ -37,8 +37,35 @@
     from tb_warehouse_user_relevance
     where id = #{id,jdbcType=VARCHAR}
   </select>
-  <select id="selectAll" resultMap="BaseResultMap" >
+  <select id="selectByPrimaryUserid" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select id, userId, warehouseId, deleted, usertype, createTime, updateTime
     from tb_warehouse_user_relevance
+    where userId = #{userid,jdbcType=VARCHAR}
   </select>
+  <select id="selectAll" resultMap="WarehouseUserResultMap" >
+    select id, userId, warehouseId, deleted, usertype, createTime, updateTime
+    from tb_warehouse_user_relevance
+    <where>
+      <if test="warehouseid != null and warehouseid != ''">
+        warehouseId = #{warehouseid,jdbcType=VARCHAR}
+      </if>
+      and deleted = 0
+    </where>
+  </select>
+
+  <!-- 使用resultMap映射实体类和字段之间的一一对应关系 -->
+  <resultMap type="com.shan.admin.dto.WarehouseUserRelevanceDto" id="WarehouseUserResultMap">
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="userId" property="userid" jdbcType="VARCHAR" />
+    <result column="warehouseId" property="warehouseid" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="INTEGER" />
+    <result column="userType" property="usertype" jdbcType="INTEGER" />
+    <result column="createTime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="updateTime" property="updatetime" jdbcType="TIMESTAMP" />
+    <association property="warehouseUser" column="userid" select="getWarehouseUser"/>
+  </resultMap>
+
+  <select id="getWarehouseUser" resultType="com.shan.admin.dto.WarehouseUserDto">
+        SELECT * FROM tb_warehouse_user WHERE userId=#{userid}
+    </select>
 </mapper>

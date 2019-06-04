@@ -101,9 +101,33 @@
         <association property="province" column="provinceid" select="getArea"/>
         <association property="city" column="cityid" select="getArea"/>
         <association property="district" column="districtid" select="getArea"/>
+        <collection property="warehouseUsers" ofType="com.shan.admin.dto.WarehouseUserRelevanceDto" column="warehouseid" select="getWarehouseUserRelevance"/>
     </resultMap>
 
     <select id="getArea" resultType="com.shan.admin.dto.AreaDto">
         SELECT * FROM tb_area WHERE areaId=#{areaid}
+    </select>
+
+    <!-- 查询仓库和用户关联表 -->
+    <select id="getWarehouseUserRelevance" resultMap="WarehouseResultMap">
+        SELECT * FROM tb_warehouse_user_relevance WHERE warehouseId=#{warehouseid}
+    </select>
+
+    <!-- 使用resultMap映射实体类和字段之间的一一对应关系 -->
+    <resultMap type="com.shan.admin.dto.WarehouseUserRelevanceDto" id="WarehouseResultMap">
+        <id column="id" property="id" jdbcType="VARCHAR" />
+        <result column="userId" property="userid" jdbcType="VARCHAR" />
+        <result column="warehouseId" property="warehouseid" jdbcType="VARCHAR" />
+        <result column="deleted" property="deleted" jdbcType="INTEGER" />
+        <result column="userType" property="usertype" jdbcType="INTEGER" />
+        <result column="createTime" property="createtime" jdbcType="TIMESTAMP" />
+        <result column="updateTime" property="updatetime" jdbcType="TIMESTAMP" />
+        <association property="warehouseUser" column="userid" select="getWarehouseUser"/>
+    </resultMap>
+
+    <select id="getWarehouseUser" resultType="com.shan.admin.dto.WarehouseUserDto">
+        SELECT userId, username, nickName, mobile, provinceId, cityId, districtId,
+    address, deleted, createTime, updateTime, userPhoto
+     FROM tb_warehouse_user WHERE userId=#{userid}
     </select>
 </mapper>

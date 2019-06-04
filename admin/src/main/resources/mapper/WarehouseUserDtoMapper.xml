@@ -121,6 +121,6 @@
   </resultMap>
 
   <select id="getWarehouse" resultType="com.shan.admin.dto.WarehouseDto">
-        SELECT * FROM tb_warehouse WHERE warehouseid=#{warehouseid}
+        SELECT * FROM tb_warehouse WHERE warehouseId=#{warehouseid}
     </select>
 </mapper>

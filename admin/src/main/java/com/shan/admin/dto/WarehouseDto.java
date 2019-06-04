@@ -1,6 +1,7 @@
 package com.shan.admin.dto;
 
 import java.util.Date;
+import java.util.List;
 
 public class WarehouseDto {
     private String warehouseid;
@@ -28,6 +29,16 @@ public class WarehouseDto {
     private AreaDto province;
     private AreaDto city;
     private AreaDto district;
+
+    private List<WarehouseUserRelevanceDto> warehouseUsers;
+
+    public List<WarehouseUserRelevanceDto> getWarehouseUsers() {
+        return warehouseUsers;
+    }
+
+    public void setWarehouseUsers(List<WarehouseUserRelevanceDto> warehouseUsers) {
+        this.warehouseUsers = warehouseUsers;
+    }
 
     public Integer getProvinceid() {
         return provinceid;

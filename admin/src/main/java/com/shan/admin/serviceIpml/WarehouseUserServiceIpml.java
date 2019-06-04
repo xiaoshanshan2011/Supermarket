@@ -33,6 +33,9 @@ public class WarehouseUserServiceIpml implements WarehouseUserService {
         PageHelper.startPage(paramsBean.getPage(), paramsBean.getLimit());
         paramsBean.setKeyword("%" + paramsBean.getKeyword() + "%");
         List<WarehouseUserDto> list = mapper.selectAll(paramsBean);
+        for (int i = 0; i < list.size(); i++) {
+            list.get(i).setPassword("");
+        }
         DatagridResult result = new DatagridResult(list, new PageInfo<>(list).getTotal());
         return ResultUtils.success(result);
     }

@@ -12,7 +12,6 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
@@ -20,9 +19,8 @@ public class DbShiroRealm extends AuthorizingRealm {
 	private final Logger log = LoggerFactory.getLogger(DbShiroRealm.class);
 	
 	public static final String encryptSalt = "s45862HLShgtg$#85r";
-	@Autowired
 	private LoginService loginService;
-	
+
 	public DbShiroRealm(LoginService loginService) {
 		this.loginService = loginService;
 		this.setCredentialsMatcher(new HashedCredentialsMatcher(Sha256Hash.ALGORITHM_NAME));

@@ -1,15 +1,18 @@
 package com.shan.admin.dto;
 
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
 public class WarehouseUserRelevanceDto {
     private String id;
 
+    @NotBlank(message = "userid不能为空")
     private String userid;
-
+    @NotBlank(message = "warehouseid不能为空")
     private String warehouseid;
 
     private Integer deleted;
+    @NotBlank(message = "usertype不能为空")
     private Integer usertype;
 
     private Date createtime;
@@ -17,6 +20,16 @@ public class WarehouseUserRelevanceDto {
     private Date updatetime;
 
     private WarehouseDto warehouse;
+
+    private WarehouseUserDto warehouseUser;
+
+    public WarehouseUserDto getWarehouseUser() {
+        return warehouseUser;
+    }
+
+    public void setWarehouseUser(WarehouseUserDto warehouseUser) {
+        this.warehouseUser = warehouseUser;
+    }
 
     public WarehouseDto getWarehouse() {
         return warehouse;
