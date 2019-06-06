@@ -11,8 +11,6 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 
 /**
@@ -21,7 +19,6 @@ import org.slf4j.LoggerFactory;
  */
 
 public class JWTShiroRealm extends AuthorizingRealm {
-	private final Logger log = LoggerFactory.getLogger(JWTShiroRealm.class);
 
     protected LoginService loginService;
 

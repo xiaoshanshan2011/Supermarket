@@ -17,7 +17,7 @@ import java.util.List;
 
 public class DbShiroRealm extends AuthorizingRealm {
 	private final Logger log = LoggerFactory.getLogger(DbShiroRealm.class);
-	
+
 	public static final String encryptSalt = "s45862HLShgtg$#85r";
 	private LoginService loginService;
 
@@ -25,12 +25,12 @@ public class DbShiroRealm extends AuthorizingRealm {
 		this.loginService = loginService;
 		this.setCredentialsMatcher(new HashedCredentialsMatcher(Sha256Hash.ALGORITHM_NAME));
 	}
-	
+
 	@Override
     public boolean supports(AuthenticationToken token) {
         return token instanceof UsernamePasswordToken;
     }
-	
+
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
 		UsernamePasswordToken userpasswordToken = (UsernamePasswordToken)token;
@@ -44,7 +44,7 @@ public class DbShiroRealm extends AuthorizingRealm {
 
 
 	@Override
-	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {      
+	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
         SysUserDto user = (SysUserDto) principals.getPrimaryPrincipal();
         List<String> roles = user.getRoles();

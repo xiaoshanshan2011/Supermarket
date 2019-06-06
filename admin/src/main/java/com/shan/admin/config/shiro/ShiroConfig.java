@@ -14,6 +14,7 @@ import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.spring.web.config.DefaultShiroFilterChainDefinition;
 import org.apache.shiro.spring.web.config.ShiroFilterChainDefinition;
 import org.apache.shiro.web.mgt.DefaultWebSessionStorageEvaluator;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,11 +29,13 @@ import java.util.Map;
  */
 @Configuration
 public class ShiroConfig {
+    @Autowired
+    private LoginService loginService;
 
     @Bean
-    public FilterRegistrationBean<Filter> filterRegistrationBean(SecurityManager securityManager, LoginService loginService, RedisComponent redisComponent) throws Exception{
+    public FilterRegistrationBean<Filter> filterRegistrationBean(SecurityManager securityManager, RedisComponent redisComponent) throws Exception {
         FilterRegistrationBean<Filter> filterRegistration = new FilterRegistrationBean<Filter>();
-        filterRegistration.setFilter((Filter)shiroFilter(securityManager, loginService, redisComponent).getObject());
+        filterRegistration.setFilter((Filter) shiroFilter(securityManager, redisComponent).getObject());
         filterRegistration.addInitParameter("targetFilterLifecycle", "true");
         filterRegistration.setAsyncSupported(true);
         filterRegistration.setEnabled(true);
@@ -42,28 +45,28 @@ public class ShiroConfig {
     }
 
     @Bean
-    public Authenticator authenticator(LoginService loginService) {
+    public Authenticator authenticator() {
         ModularRealmAuthenticator authenticator = new ModularRealmAuthenticator();
-        authenticator.setRealms(Arrays.asList(jwtShiroRealm(loginService), dbShiroRealm(loginService)));
+        authenticator.setRealms(Arrays.asList(jwtShiroRealm(), dbShiroRealm()));
         authenticator.setAuthenticationStrategy(new FirstSuccessfulStrategy());
         return authenticator;
     }
 
     @Bean
-    protected SessionStorageEvaluator sessionStorageEvaluator(){
+    protected SessionStorageEvaluator sessionStorageEvaluator() {
         DefaultWebSessionStorageEvaluator sessionStorageEvaluator = new DefaultWebSessionStorageEvaluator();
         sessionStorageEvaluator.setSessionStorageEnabled(false);
         return sessionStorageEvaluator;
     }
 
     @Bean("dbRealm")
-    public Realm dbShiroRealm(LoginService loginService) {
+    public Realm dbShiroRealm() {
         DbShiroRealm myShiroRealm = new DbShiroRealm(loginService);
         return myShiroRealm;
     }
 
     @Bean("jwtRealm")
-    public Realm jwtShiroRealm(LoginService loginService) {
+    public Realm jwtShiroRealm() {
         JWTShiroRealm myShiroRealm = new JWTShiroRealm(loginService);
         return myShiroRealm;
     }
@@ -72,11 +75,11 @@ public class ShiroConfig {
      * 设置过滤器
      */
     @Bean("shiroFilter")
-    public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager, LoginService loginService, RedisComponent redisComponent) {
-    	ShiroFilterFactoryBean factoryBean = new ShiroFilterFactoryBean();
+    public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager, RedisComponent redisComponent) {
+        ShiroFilterFactoryBean factoryBean = new ShiroFilterFactoryBean();
         factoryBean.setSecurityManager(securityManager);
         Map<String, Filter> filterMap = factoryBean.getFilters();
-        filterMap.put("authcToken", createAuthFilter(loginService, redisComponent));
+        filterMap.put("authcToken", createAuthFilter(redisComponent));
         filterMap.put("anyRole", createRolesFilter());
         factoryBean.setFilters(filterMap);
         factoryBean.setFilterChainDefinitionMap(shiroFilterChainDefinition().getFilterChainMap());
@@ -89,12 +92,15 @@ public class ShiroConfig {
         DefaultShiroFilterChainDefinition chainDefinition = new DefaultShiroFilterChainDefinition();
         chainDefinition.addPathDefinition("/api/admin/login", "noSessionCreation,anon");
         chainDefinition.addPathDefinition("/api/admin/logout", "noSessionCreation,authcToken[permissive]");
-        chainDefinition.addPathDefinition("/swagger-resources/**", "anon");
-        chainDefinition.addPathDefinition("/webjars/**", "anon");
-        chainDefinition.addPathDefinition("/v2/**", "anon");
-        chainDefinition.addPathDefinition("/swagger-ui.html/**", "anon");
         chainDefinition.addPathDefinition("/test", "anon");
         chainDefinition.addPathDefinition("/image/**", "anon");
+        chainDefinition.addPathDefinition("/swagger-ui.html", "anon");
+        chainDefinition.addPathDefinition("/", "anon");
+        chainDefinition.addPathDefinition("/csrf", "anon");
+        chainDefinition.addPathDefinition("/swagger-resources", "anon");
+        chainDefinition.addPathDefinition("/swagger-resources/**", "anon");
+        chainDefinition.addPathDefinition("/v2/api-docs", "anon");
+        chainDefinition.addPathDefinition("/webjars/springfox-swagger-ui/**", "anon");
         chainDefinition.addPathDefinition("/admin/**", "noSessionCreation,authcToken,anyRole[admin,manager]"); //只允许admin或manager角色的用户访问
         chainDefinition.addPathDefinition("/article/list", "noSessionCreation,authcToken");
         chainDefinition.addPathDefinition("/article/*", "noSessionCreation,authcToken[permissive]");
@@ -102,11 +108,11 @@ public class ShiroConfig {
         return chainDefinition;
     }
 
-    protected JwtAuthFilter createAuthFilter(LoginService loginService, RedisComponent redisComponent){
+    protected JwtAuthFilter createAuthFilter(RedisComponent redisComponent) {
         return new JwtAuthFilter(loginService, redisComponent);
     }
 
-    protected AnyRolesAuthorizationFilter createRolesFilter(){
+    protected AnyRolesAuthorizationFilter createRolesFilter() {
         return new AnyRolesAuthorizationFilter();
     }
 
