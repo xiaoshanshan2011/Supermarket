@@ -12,6 +12,7 @@ import com.shan.admin.dto.WarehouseDto;
 import com.shan.admin.mapper.WarehouseDtoMapper;
 import com.shan.admin.paramsbean.WarehouseParamsBean;
 import com.shan.admin.service.WarehouseService;
+import com.shan.admin.utils.FiledReplaceUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -93,34 +94,11 @@ public class WarehouseServiceIpml implements WarehouseService {
                 return ResultUtils.error("仓库名称已存在");
         }
         if (!dto.getWarehousesn().equals(record.getWarehousesn())){
-            WarehouseDto dto2 = mapper.selectByPrimaryName(record.getWarehousesn());
+            WarehouseDto dto2 = mapper.selectByPrimarySn(record.getWarehousesn());
             if (dto2 != null)
                 return ResultUtils.error("仓库编号已存在");
         }
-        if (!TextUtils.isEmpty(record.getWarehousename())) {
-            dto.setWarehousename(record.getWarehousename());
-        }
-        if (!TextUtils.isEmpty(record.getWarehousedesc())) {
-            dto.setWarehousedesc(record.getWarehousedesc());
-        }
-        if (!TextUtils.isEmpty(record.getWarehouseimg())) {
-            dto.setWarehouseimg(record.getWarehouseimg());
-        }
-        if (!TextUtils.isEmpty(record.getWarehousesn())) {
-            dto.setWarehousesn(record.getWarehousesn());
-        }
-        if (!TextUtils.isEmpty(record.getAddress())) {
-            dto.setAddress(record.getAddress());
-        }
-        if (record.getProvinceid() != null) {
-            dto.setProvinceid(record.getProvinceid());
-        }
-        if (record.getCityid() != null) {
-            dto.setCityid(record.getCityid());
-        }
-        if (record.getDistrictid() != null) {
-            dto.setDistrictid(record.getDistrictid());
-        }
+        FiledReplaceUtils.replace(dto, record);
         dto.setUpdatetime(new Date());
         return HandleUtils.isSuccess(mapper.updateByPrimaryKey(dto));
     }

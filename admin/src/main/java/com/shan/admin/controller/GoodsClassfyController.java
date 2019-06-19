@@ -3,12 +3,14 @@ package com.shan.admin.controller;
 import com.publib.bean.Result;
 import com.shan.admin.dto.GoodsClassifyDto;
 import com.shan.admin.service.GoodsClassifyService;
+import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
+@Api(tags={"商品分类"})
 @RestController
 public class GoodsClassfyController {
 	private Logger logger = LoggerFactory.getLogger(GoodsClassfyController.class);

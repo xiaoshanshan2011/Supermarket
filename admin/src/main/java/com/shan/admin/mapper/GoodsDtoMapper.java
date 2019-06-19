@@ -13,6 +13,7 @@ public interface GoodsDtoMapper {
     GoodsDto selectByPrimaryKey(Long goodscode);
 
     List<GoodsDto> selectAll(GoodsParamsBean paramsBean);
+    List<GoodsDto> selectAll();
 
     int updateByPrimaryKey(GoodsDto record);
 }

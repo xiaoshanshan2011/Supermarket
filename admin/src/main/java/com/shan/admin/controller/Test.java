@@ -3,16 +3,17 @@ package com.shan.admin.controller;
 import com.publib.bean.Result;
 import com.publib.utils.ResultUtils;
 import com.shan.admin.dto.TestBean;
+import io.swagger.annotations.Api;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.UUID;
 
+@Api(tags={"测试接口"})
 @RestController
 public class Test {
     @GetMapping("/image/test")

@@ -5,6 +5,7 @@ import com.publib.utils.ResultUtils;
 import com.publib.utils.TextUtils;
 import com.shan.admin.dto.SysUserDto;
 import com.shan.admin.service.LoginService;
+import io.swagger.annotations.Api;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -20,6 +21,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+@Api(tags={"登录"})
 @RestController
 public class LoginController {
 	private Logger logger = LoggerFactory.getLogger(LoginController.class);

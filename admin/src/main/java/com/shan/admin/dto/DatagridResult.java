@@ -1,19 +1,19 @@
 package com.shan.admin.dto;
 
-public class DatagridResult<T> {
-    private T rows;
+public class DatagridResult {
+    private Object rows;
     private long total;
 
-    public DatagridResult(T rows, long total) {
+    public DatagridResult(Object rows, long total) {
         this.rows = rows;
         this.total = total;
     }
 
-    public T getRows() {
+    public Object getRows() {
         return rows;
     }
 
-    public void setRows(T rows) {
+    public void setRows(Object rows) {
         this.rows = rows;
     }
 

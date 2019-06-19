@@ -94,13 +94,14 @@ public class ShiroConfig {
         chainDefinition.addPathDefinition("/api/admin/logout", "noSessionCreation,authcToken[permissive]");
         chainDefinition.addPathDefinition("/test", "anon");
         chainDefinition.addPathDefinition("/image/**", "anon");
+        chainDefinition.addPathDefinition("/doc.html", "anon");
         chainDefinition.addPathDefinition("/swagger-ui.html", "anon");
         chainDefinition.addPathDefinition("/", "anon");
         chainDefinition.addPathDefinition("/csrf", "anon");
         chainDefinition.addPathDefinition("/swagger-resources", "anon");
         chainDefinition.addPathDefinition("/swagger-resources/**", "anon");
         chainDefinition.addPathDefinition("/v2/api-docs", "anon");
-        chainDefinition.addPathDefinition("/webjars/springfox-swagger-ui/**", "anon");
+        chainDefinition.addPathDefinition("/webjars/**", "anon");
         chainDefinition.addPathDefinition("/admin/**", "noSessionCreation,authcToken,anyRole[admin,manager]"); //只允许admin或manager角色的用户访问
         chainDefinition.addPathDefinition("/article/list", "noSessionCreation,authcToken");
         chainDefinition.addPathDefinition("/article/*", "noSessionCreation,authcToken[permissive]");

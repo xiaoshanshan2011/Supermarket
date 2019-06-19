@@ -5,15 +5,20 @@ import com.publib.utils.ResultUtils;
 import com.shan.admin.dto.GoodsDto;
 import com.shan.admin.paramsbean.GoodsParamsBean;
 import com.shan.admin.service.GoodsService;
+import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
 
+@Api(tags={"平台商品"})
 @RestController
 public class GoodsController {
 	private Logger logger = LoggerFactory.getLogger(GoodsController.class);

@@ -1,13 +1,17 @@
 package com.shan.admin.dto;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.Date;
 
 public class WarehouseGoodsDto {
     private String id;
 
+    @NotBlank(message = "warehouseid不能为空")
     private String warehouseid;
 
+    @NotNull(message = "goodscode不能为空")
     private Long goodscode;
 
     private Integer goodsstock;
@@ -29,6 +33,16 @@ public class WarehouseGoodsDto {
     private Date createtime;
 
     private Date updatetime;
+
+    private GoodsDto goods;
+
+    public GoodsDto getGoods() {
+        return goods;
+    }
+
+    public void setGoods(GoodsDto goods) {
+        this.goods = goods;
+    }
 
     public String getId() {
         return id;

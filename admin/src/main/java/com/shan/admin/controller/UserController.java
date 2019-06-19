@@ -3,12 +3,14 @@ package com.shan.admin.controller;
 import com.publib.bean.Result;
 import com.shan.admin.dto.SysUserDto;
 import com.shan.admin.service.UserService;
+import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
+@Api(tags={"用户管理"})
 @RestController
 public class UserController {
 	private Logger logger = LoggerFactory.getLogger(UserController.class);
